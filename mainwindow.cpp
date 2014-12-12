@@ -11,11 +11,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    int fn = 1;
-    QString firstnumber = QString(QString::number(fn));
-    ui->datenum_lineEdit->setText(firstnumber);
-
-//    ui->checkBox->checkState()->Checked();
+//    int fn = 1;
+//    QString firstnumber = QString(QString::number(fn));
+//    ui->datenum_lineEdit->setText(firstnumber);
 
     QObject::connect(ui->end_button,SIGNAL(clicked()),this,SLOT(close()));
 
@@ -32,11 +30,17 @@ void MainWindow::on_pushButton_2_clicked()
     qDebug() << "renew";
 
     //準備
-    QString number = ui->datenum_lineEdit->text();
-    int n = number.toInt();
+    QString s_number = ui->start_lineEdit->text();
+    int n1 = s_number.toInt();
+
+    QString e_number = ui->datenum_lineEdit->text();
+    int n2 = e_number.toInt();
 
     QString velocity = ui->time_lineEdit->text();
     float v = velocity.toFloat();
+
+    QString interval = ui->interval_lineEdit->text();
+    float j = interval.toFloat();
 
     float tmptime = 0;
     float fulltime = 0;
@@ -70,7 +74,7 @@ void MainWindow::on_pushButton_2_clicked()
 
     //　パスがあるとき
 
-    for(int i=0;i<n;i++){
+    for(int i=n1;i<=n2;i++){
         QString str = ui->refer_lineEdit->text();
         QString str2 = QString("/model.%1%2%3.csv").arg(0).arg(0).arg(i);
         str.append(str2);
@@ -93,6 +97,9 @@ void MainWindow::on_pushButton_2_clicked()
             QMessageBox msgbox;
             msgbox.setText("error");
             msgbox.exec();
+
+            ui->result_lineEdit->setText("error");
+            return;
         }
 
         QTextStream in(&file);
@@ -120,36 +127,14 @@ void MainWindow::on_pushButton_2_clicked()
             oldX = newX;
             oldY = newY;
         }
+        fulltime = fulltime + j * (n2 - n1 + 1) / v;
     }
 
     //計算結果表示
     QString full = QString(QString::number(fulltime));
     ui->result_lineEdit->setText(full);
 
-
-    //    if(!ui->refer_lineEdit->text().isEmpty())
-    //    {
-
-    //        QString str;
-
-    //        QFile file(ui->refer_lineEdit->text());
-
-    //        if (file.open(QIODevice::ReadOnly))//読込のみでオープンできたかチェック
-    //        {
-    //            return;
-    //            qDebug("open!");
-    //        }else
-    //        {
-    //             qDebug("Couldn't open!");
-    //        }
-
-    //        QTextStream in(&file);
-    //       in >> str;
-
-    //        qDebug ("ok!");
-    //    }else{
-    //        qDebug ("NG!");
-    //    }
+    qDebug()<< j;
 
 }
 
@@ -175,16 +160,6 @@ void MainWindow::on_refer_button_clicked()
     //            msgbox.exec();
     //        }
 
-
 }
-
-void MainWindow::on_danger_pushButton_clicked()
-{
-    QMessageBox msgbox2;
-    msgbox2.setText("DANGER");
-    msgbox2.setIcon(QMessageBox::Warning);
-    msgbox2.exec();
-}
-
 
 
