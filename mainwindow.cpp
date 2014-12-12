@@ -1,9 +1,10 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QtMath>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -134,8 +135,15 @@ void MainWindow::on_pushButton_2_clicked()
     QString full = QString(QString::number(fulltime));
     ui->result_lineEdit->setText(full);
 
+<<<<<<< HEAD
     qDebug()<< j;
 
+=======
+
+    QMessageBox msg;
+    msg.setText(tr("駒田のばか！！"));
+    msg.exec();
+>>>>>>> f7f753108802f44cd5aa79e7d097e2fa8f9d180e
 }
 
 void MainWindow::on_refer_button_clicked()
