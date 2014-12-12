@@ -1,9 +1,10 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 
 #include <QDebug>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QtMath>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -127,30 +128,9 @@ void MainWindow::on_pushButton_2_clicked()
     ui->result_lineEdit->setText(full);
 
 
-    //    if(!ui->refer_lineEdit->text().isEmpty())
-    //    {
-
-    //        QString str;
-
-    //        QFile file(ui->refer_lineEdit->text());
-
-    //        if (file.open(QIODevice::ReadOnly))//読込のみでオープンできたかチェック
-    //        {
-    //            return;
-    //            qDebug("open!");
-    //        }else
-    //        {
-    //             qDebug("Couldn't open!");
-    //        }
-
-    //        QTextStream in(&file);
-    //       in >> str;
-
-    //        qDebug ("ok!");
-    //    }else{
-    //        qDebug ("NG!");
-    //    }
-
+    QMessageBox msg;
+    msg.setText(tr("駒田のばか！！"));
+    msg.exec();
 }
 
 void MainWindow::on_refer_button_clicked()
